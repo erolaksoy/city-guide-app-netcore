@@ -20,5 +20,10 @@ namespace Study.SehirRehberi.Business.Concrete
         {
             return await _uow.CityDal.GetCityWithPhotosById(id);
         }
+
+        public async Task<List<City>> GetListCityWithPhotos()
+        {
+            return await _uow.CityDal.GetListCityWithPhotos();
+        }
     }
 }

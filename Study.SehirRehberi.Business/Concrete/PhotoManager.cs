@@ -4,6 +4,7 @@ using Study.SehirRehberi.Entitiy.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Study.SehirRehberi.Business.Concrete
 {
@@ -13,6 +14,11 @@ namespace Study.SehirRehberi.Business.Concrete
         public PhotoManager(IUnitOfWork uow) : base(uow)
         {
             _uow = uow;
+        }
+
+        public async Task<List<Photo>> GetPhotosByCityId(int cityId)
+        {
+            return await _uow.PhotoDal.GetListAsync(x => x.CityId == cityId);
         }
     }
 }

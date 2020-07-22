@@ -9,5 +9,6 @@ namespace Study.SehirRehberi.Business.Interfaces
     public interface ICityService : IGenericService<City>
     {
         Task<City> GetCityWithPhotosById(int id);
+        Task<List<City>> GetListCityWithPhotos();
     }
 }

@@ -9,5 +9,6 @@ namespace Study.SehirRehberi.DataAccess.Interfaces
     public interface ICityDal : IGenericDal<City>
     {
         Task<City> GetCityWithPhotosById(int id);
+        Task<List<City>> GetListCityWithPhotos();
     }
 }

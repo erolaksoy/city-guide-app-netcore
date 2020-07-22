@@ -13,6 +13,11 @@ namespace Study.SehirRehberi.Mapping.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<City, CityListDto>().ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(src => src.IsMain).Url));
+            CreateMap<City, CityAddDto>();
+            CreateMap<CityAddDto, City>();
+
+            CreateMap<City, CityDetailDto>();
+            CreateMap<CityDetailDto, City>();
         }
     }
 }

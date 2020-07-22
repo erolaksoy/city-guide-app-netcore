@@ -21,5 +21,10 @@ namespace Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Repositorie
         {
             return await _context.Cities.Include(x => x.Photos).FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<List<City>> GetListCityWithPhotos()
+        {
+            return await _context.Cities.Include(x => x.Photos).ToListAsync();
+        }
     }
 }

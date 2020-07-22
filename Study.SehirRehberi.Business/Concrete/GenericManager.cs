@@ -22,6 +22,11 @@ namespace Study.SehirRehberi.Business.Concrete
             _uow.SaveChanges();
         }
 
+        public async Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await _uow.GetRepository<TEntity>().GetByFilterAsync(filter);
+        }
+
         public async Task<TEntity> GetByIdAsync(int id)
         {
             return await _uow.GetRepository<TEntity>().GetByIdAsync(id);

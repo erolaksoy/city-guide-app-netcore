@@ -19,6 +19,11 @@ namespace Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Repositorie
             _context = context;
         }
 
+        public async Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(filter);
+        }
+
         public void Delete(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);

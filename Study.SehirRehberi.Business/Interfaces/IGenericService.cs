@@ -9,6 +9,7 @@ namespace Study.SehirRehberi.Business.Interfaces
 {
     public interface IGenericService<TEntity> where TEntity : class, ITable, new()
     {
+        Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter);
         Task InsertAsync(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
