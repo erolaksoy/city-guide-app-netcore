@@ -1,5 +1,6 @@
 ﻿using Study.SehirRehberi.Business.Interfaces;
 using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.UnitOfWork;
+using Study.SehirRehberi.DataAccess.Interfaces;
 using Study.SehirRehberi.Entitiy.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,15 @@ namespace Study.SehirRehberi.Business.Concrete
 {
     public class PhotoManager : GenericManager<Photo>, IPhotoService
     {
-        private readonly IUnitOfWork _uow;
-        public PhotoManager(IUnitOfWork uow) : base(uow)
+        private readonly IPhotoDal _photoDal;
+        public PhotoManager(IPhotoDal photoDal) : base(photoDal)
         {
-            _uow = uow;
+            _photoDal = photoDal;
         }
 
         public async Task<List<Photo>> GetPhotosByCityId(int cityId)
         {
-            return await _uow.PhotoDal.GetListAsync(x => x.CityId == cityId);
+            return await _photoDal.GetListAsync(x => x.CityId == cityId);
         }
     }
 }

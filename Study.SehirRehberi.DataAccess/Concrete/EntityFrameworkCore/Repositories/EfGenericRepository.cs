@@ -27,6 +27,7 @@ namespace Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Repositorie
         public void Delete(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);
+             _context.SaveChanges();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)
@@ -57,11 +58,13 @@ namespace Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Repositorie
         public async Task InsertAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
+            _context.SaveChanges();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Study.SehirRehberi.Business.Concrete;
 using Study.SehirRehberi.Business.Interfaces;
+using Study.SehirRehberi.Business.Tools.JwtTool;
 using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Context;
 using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.UnitOfWork;
@@ -19,7 +20,7 @@ namespace Study.SehirRehberi.Business.Containers.MicrosoftIoc
         public static void AddDependencies(this IServiceCollection services)
         {
             services.AddDbContext<SehirRehberiContext>();
-
+            services.AddScoped<IJwtService, JwtManager>();
             services.AddScoped(typeof(IGenericDal<>), typeof(EfGenericRepository<>));
             services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
 
@@ -28,6 +29,7 @@ namespace Study.SehirRehberi.Business.Containers.MicrosoftIoc
             services.AddScoped<IPhotoDal, EfPhotoRepository>();
             services.AddScoped<IUserDal, EfUserRepository>();
 
+            services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<ICityService, CityManager>();
             services.AddScoped<IPhotoService, PhotoManager>();
             services.AddScoped<IUserService, UserManager>();

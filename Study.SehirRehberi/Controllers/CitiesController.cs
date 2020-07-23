@@ -9,7 +9,7 @@ using Study.SehirRehberi.Business.Interfaces;
 using Study.SehirRehberi.Dto.Concrete.CityDtos;
 using Study.SehirRehberi.Entitiy.Concrete;
 
-namespace Study.SehirRehberi.Controllers
+namespace Study.SehirRehberi.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

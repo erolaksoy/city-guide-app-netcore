@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Study.SehirRehberi.Dto.Concrete.CityDtos;
+using Study.SehirRehberi.Dto.Concrete.UserDtos;
 using Study.SehirRehberi.Entitiy.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Study.SehirRehberi.Mapping.AutoMapper
+namespace Study.SehirRehberi.WebApi.Mapping.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {
@@ -18,6 +19,11 @@ namespace Study.SehirRehberi.Mapping.AutoMapper
 
             CreateMap<City, CityDetailDto>();
             CreateMap<CityDetailDto, City>();
+
+            CreateMap<User, UserRegisterDto>();
+            CreateMap<UserRegisterDto, User>();
+            CreateMap<User, UserLoginDto>();
+            CreateMap<UserLoginDto, User>();
         }
     }
 }

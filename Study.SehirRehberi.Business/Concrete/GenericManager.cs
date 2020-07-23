@@ -1,5 +1,6 @@
 ﻿using Study.SehirRehberi.Business.Interfaces;
 using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.UnitOfWork;
+using Study.SehirRehberi.DataAccess.Interfaces;
 using Study.SehirRehberi.Entitiy.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,57 +12,57 @@ namespace Study.SehirRehberi.Business.Concrete
 {
     public class GenericManager<TEntity> : IGenericService<TEntity> where TEntity : class, ITable, new()
     {
-        private readonly IUnitOfWork _uow;
-        public GenericManager(IUnitOfWork uow)
+        private readonly IGenericDal<TEntity> _genericDal;
+        public GenericManager(IGenericDal<TEntity> genericDal)
         {
-            _uow = uow;
+            _genericDal = genericDal;
         }
         public void Delete(TEntity entity)
         {
-            _uow.GetRepository<TEntity>().Delete(entity);
-            _uow.SaveChanges();
+            _genericDal.Delete(entity);
+
         }
 
         public async Task<TEntity> GetByFilterAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await _uow.GetRepository<TEntity>().GetByFilterAsync(filter);
+            return await _genericDal.GetByFilterAsync(filter);
         }
 
         public async Task<TEntity> GetByIdAsync(int id)
         {
-            return await _uow.GetRepository<TEntity>().GetByIdAsync(id);
+            return await _genericDal.GetByIdAsync(id);
         }
 
         public async Task<List<TEntity>> GetListAsync()
         {
-            return await _uow.GetRepository<TEntity>().GetListAsync();
+            return await _genericDal.GetListAsync();
         }
 
         public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await _uow.GetRepository<TEntity>().GetListAsync(filter);
+            return await _genericDal.GetListAsync(filter);
         }
 
         public async Task<List<TEntity>> GetListAsync<TKey>(Expression<Func<TEntity, TKey>> keySelector)
         {
-            return await _uow.GetRepository<TEntity>().GetListAsync();
+            return await _genericDal.GetListAsync();
         }
 
         public async Task<List<TEntity>> GetListAsync<TKey>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TKey>> keySelector)
         {
-            return await _uow.GetRepository<TEntity>().GetListAsync(filter, keySelector);
+            return await _genericDal.GetListAsync(filter, keySelector);
         }
 
         public async Task InsertAsync(TEntity entity)
         {
-            await _uow.GetRepository<TEntity>().InsertAsync(entity);
-            await _uow.SaveChangesAsync();
+            await _genericDal.InsertAsync(entity);
+
         }
 
         public void Update(TEntity entity)
         {
-            _uow.GetRepository<TEntity>().Update(entity);
-            _uow.SaveChanges();
+             _genericDal.Update(entity);
+
         }
     }
 }

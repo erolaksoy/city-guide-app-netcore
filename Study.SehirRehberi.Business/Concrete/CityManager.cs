@@ -1,5 +1,6 @@
 ﻿using Study.SehirRehberi.Business.Interfaces;
 using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.UnitOfWork;
+using Study.SehirRehberi.DataAccess.Interfaces;
 using Study.SehirRehberi.Entitiy.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,20 +11,20 @@ namespace Study.SehirRehberi.Business.Concrete
 {
     public class CityManager : GenericManager<City>, ICityService
     {
-        private readonly IUnitOfWork _uow;
-        public CityManager(IUnitOfWork uow) : base(uow)
+        private readonly ICityDal _cityDal;
+        public CityManager(ICityDal cityDal) : base(cityDal)
         {
-            _uow = uow;
+            _cityDal = cityDal;
         }
 
         public async Task<City> GetCityWithPhotosById(int id)
         {
-            return await _uow.CityDal.GetCityWithPhotosById(id);
+            return await _cityDal.GetCityWithPhotosById(id);
         }
 
         public async Task<List<City>> GetListCityWithPhotos()
         {
-            return await _uow.CityDal.GetListCityWithPhotos();
+            return await _cityDal.GetListCityWithPhotos();
         }
     }
 }

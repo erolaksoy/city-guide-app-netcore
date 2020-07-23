@@ -10,8 +10,8 @@ using Study.SehirRehberi.DataAccess.Concrete.EntityFrameworkCore.Context;
 namespace Study.SehirRehberi.DataAccess.Migrations
 {
     [DbContext(typeof(SehirRehberiContext))]
-    [Migration("20200722145850_InitialCommit1s")]
-    partial class InitialCommit1s
+    [Migration("20200723132015_initalCommit")]
+    partial class initalCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace Study.SehirRehberi.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -81,6 +81,8 @@ namespace Study.SehirRehberi.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<byte[]>("PasswordHash")
@@ -101,9 +103,7 @@ namespace Study.SehirRehberi.DataAccess.Migrations
                 {
                     b.HasOne("Study.SehirRehberi.Entitiy.Concrete.User", "User")
                         .WithMany("Cities")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Study.SehirRehberi.Entitiy.Concrete.Photo", b =>
