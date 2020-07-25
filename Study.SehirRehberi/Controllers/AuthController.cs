@@ -29,7 +29,6 @@ namespace Study.SehirRehberi.WebApi.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
-
             if (ModelState.IsValid)
             {
                 if (await _authService.UserExists(userRegisterDto.UserName) == false)
@@ -38,7 +37,6 @@ namespace Study.SehirRehberi.WebApi.Controllers
                     {
                         UserName = userRegisterDto.UserName
                     };
-
                     var createdUser = await _authService.Register(userToCreate, userRegisterDto.PassWord);
                     return Created("", createdUser);
                 }
@@ -60,9 +58,7 @@ namespace Study.SehirRehberi.WebApi.Controllers
                 return Created("", _jwtService.GenerateJwt(loginUser));
 
             }
-
             return NoContent();
-
         }
     }
 }

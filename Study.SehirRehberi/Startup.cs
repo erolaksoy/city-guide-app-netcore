@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -47,16 +48,38 @@ namespace Study.SehirRehberi
                     ValidAudience = JwtInfo.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtInfo.SecurityKey)),
                     ValidateIssuer = true,
-                    ValidateAudience =true,
+                    ValidateAudience = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
-                
+
                 };
             });
-            services.AddControllers().AddNewtonsoftJson(opt =>
+
+
+
+            services.AddAuthorization();
+            services.AddAuthentication();
+
+            services.AddCors(options =>
             {
-                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyMethod());
             });
+            //services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(builder =>
+            //        builder.SetIsOriginAllowed(_ => true)
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        .AllowCredentials());
+            //}));
+            services.AddControllers().AddNewtonsoftJson(opt =>
+        {
+            opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +94,9 @@ namespace Study.SehirRehberi
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

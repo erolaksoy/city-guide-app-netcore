@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Study.SehirRehberi.Dto.Concrete.CityDtos;
+using Study.SehirRehberi.Dto.Concrete.PhotoDtos;
 using Study.SehirRehberi.Dto.Concrete.UserDtos;
 using Study.SehirRehberi.Entitiy.Concrete;
 using System;
@@ -24,6 +25,9 @@ namespace Study.SehirRehberi.WebApi.Mapping.AutoMapper
             CreateMap<UserRegisterDto, User>();
             CreateMap<User, UserLoginDto>();
             CreateMap<UserLoginDto, User>();
+
+            CreateMap<Photo, PhotoAddDto>();
+            CreateMap<PhotoAddDto, Photo>();
         }
     }
 }
